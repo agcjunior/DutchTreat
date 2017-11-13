@@ -9,6 +9,11 @@
     "LogLevel": {
       "Default": "Information",
       "Microsoft": "Warning"
-    } 
+    }
+  },
+  "Tokens": {
+    "Key": "askjfdhgikghnhk hfdskg lfdfkpdfphsdf",
+    "Issuer": "localhost",
+    "Audience": "*"
   }
 }

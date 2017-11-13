@@ -41,6 +41,24 @@ namespace DutchTreat.Data
             }
         }
 
+        public IEnumerable<Order> GetAllOrdersByUser(string username, bool includeItems)
+        {
+            if (includeItems)
+            {
+                return _ctx.Orders
+                    .Where(o=>o.User.UserName == username)
+                    .Include(i => i.Items)
+                    .ThenInclude(p => p.Product)
+                    .ToList();
+            }
+            else
+            {
+                return _ctx.Orders
+                    .Where(o => o.User.UserName == username)
+                    .ToList();
+            }
+        }
+
         public IEnumerable<Product> GetAllProducts()
         {
             try
@@ -63,6 +81,15 @@ namespace DutchTreat.Data
                 .Include(o => o.Items)
                 .ThenInclude(p => p.Product)
                 .Where(o => o.Id == id)
+                .FirstOrDefault();
+        }
+
+        public Order GetOrderById(string username, int orderId)
+        {
+            return _ctx.Orders
+                .Include(o => o.Items)
+                .ThenInclude(p => p.Product)
+                .Where(o => o.Id == orderId && o.User.UserName == username)
                 .FirstOrDefault();
         }
 
