@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var StoreCustomer = (function () {
     function StoreCustomer(firstName, lastName) {
         this.firstName = firstName;
@@ -12,3 +12,4 @@ var StoreCustomer = (function () {
     return StoreCustomer;
 }());
 exports.StoreCustomer = StoreCustomer;
+//# sourceMappingURL=storecustomer.js.map
