@@ -1,21 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { Http, HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { ProductList } from './shop/productList.component'
+import { ProductList } from './shop/productList.component';
+import { Cart } from './shop/cart.component';
+import { DataService } from './shared/dataService';
 
 
 @NgModule({
   declarations: [
       AppComponent,
-      ProductList
-
+      ProductList,
+      Cart
   ],
   imports: [
-    BrowserModule
+      BrowserModule,
+      HttpModule
   ],
-  providers: [],
+  providers: [
+      DataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
