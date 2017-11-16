@@ -16,9 +16,27 @@ require("rxjs/add/operator/map");
 var DataService = (function () {
     function DataService(http) {
         this.http = http;
+        this.token = "";
         this.products = [];
         this.order = new order_1.Order();
     }
+    Object.defineProperty(DataService.prototype, "loginRequired", {
+        get: function () {
+            return this.token.length == 0 || this.tokenExpiration > new Date();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    DataService.prototype.login = function (creds) {
+        var _this = this;
+        return this.http.post("/Account/CreateToken", creds)
+            .map(function (response) {
+            var tokenInfo = response.json();
+            _this.token = tokenInfo.token;
+            _this.tokenExpiration = tokenInfo.expiration;
+            return true;
+        });
+    };
     DataService.prototype.loadProducts = function () {
         var _this = this;
         return this.http.get("/api/products")

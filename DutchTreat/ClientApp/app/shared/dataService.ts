@@ -13,8 +13,25 @@ export class DataService {
     constructor(private http: Http) {
     }
 
+    private token: string = "";
+    private tokenExpiration: Date;
+
     public products = [];
     public order: Order = new Order();
+
+    public get loginRequired(): boolean {
+        return this.token.length == 0 || this.tokenExpiration > new Date();
+    }
+
+    public login(creds) {
+        return this.http.post("/Account/CreateToken", creds)
+            .map(response => {
+                let tokenInfo = response.json();
+                this.token = tokenInfo.token;
+                this.tokenExpiration = tokenInfo.expiration;
+                return true;
+            });
+    }
 
     public loadProducts() : Observable<Product[]> {
         return this.http.get("/api/products")

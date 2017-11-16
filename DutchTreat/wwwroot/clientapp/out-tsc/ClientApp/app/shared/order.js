@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var _ = require("lodash");
 var Order = (function () {
     function Order() {
         this.orderDate = new Date();
@@ -7,7 +8,7 @@ var Order = (function () {
     }
     Object.defineProperty(Order.prototype, "subtotal", {
         get: function () {
-            return 0;
+            return _.sum(_.map(this.items, function (i) { return i.unitPrice * i.quantity; }));
         },
         enumerable: true,
         configurable: true
